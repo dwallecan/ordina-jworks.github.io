@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Adding TypeScript to Ionic Framework - Jan De Wilde">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/ionic-and-typescript.jpg"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/ionic/2016/03/31/Adding-TypeScript-to-Ionic-Framework.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Adding TypeScript to Ionic Framework - Jan De Wilde"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/ionic-and-typescript.jpg"/>
+
+    
+    <title>Adding TypeScript to Ionic Framework - Jan De Wilde &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Adding TypeScript to Ionic Framework</h2>
+                
+
+                
+                    Posted Mar 31, 2016
+
+
+    in <a href="/categories/ionic/">Ionic</a>
+
+
+
+    by
+    
+        <a href="/author/jan-de-wilde/">Jan De Wilde</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/typescript/">TypeScript</a>, 
+    
+        <a href="/tags/ionic/">Ionic</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <h3 id="ionic-and-typescript-sitting-in-a-tree">Ionic and TypeScript sitting in a tree</h3>
+
+<p>So, <a href="http://www.typescriptlang.org/">TypeScript</a> is the all new thing that allows you to use features from ES6 (or ES2015), ES7 and beyond.
+Say goodbye to loosely typed variables and say hello to modules, classes, interfaces and so much more.</p>
+
+<p>In order to use TypeScript in an Ionic Framework project there are a few small things you need to do to get things running.</p>
+
+<h2 id="1-install-and-configure-the-gulp-package">1. Install and configure the gulp package</h2>
+
+<ul>
+  <li>Install the <strong>gulp-tsc package</strong> and save it to the development dependencies in <code class="highlighter-rouge">package.json</code></li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">npm install gulp-tsc --save-dev</code></pre></figure>
+
+<ul>
+  <li>Next, require the package in your <strong>gulpfile.js</strong> like so</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-typescript" data-lang="typescript"><span class="kd">var</span> <span class="nx">typescript</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">gulp-tsc</span><span class="dl">'</span><span class="p">);</span></code></pre></figure>
+
+<ul>
+  <li>
+    <p>Add the following line to the paths object: <code class="highlighter-rouge">ts: ['./src/*.ts', './src/**/*.ts']</code>.
+You may have noticed two things here: All my TypeScript files are in a <strong>src folder</strong> which means I’m <strong>not using the www folder</strong> that Ionic provides by default.
+This way I can keep the TypeScript files and JavaScript files separated.
+Next to that I’m also targeting subfolders in that folder because I’m bundling my logic based on AngularJS modules.
+You can read more about structuring an AngularJS project in the <a href="https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#application-structure-lift-principle">John Papa AngularJS Style Guide</a>.</p>
+  </li>
+  <li>
+    <p>Add our compile task</p>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">gulp.task('compile', function(){
+    gulp.src(paths.ts)
+        .pipe(typescript({ emitError: false }))
+        .pipe(gulp.dest('www/'));
+});</code></pre></figure>
+
+<ul>
+  <li>Add our task to watch</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">gulp.task('watch', function () {
+    gulp.watch(paths.sass, ['sass']);
+    gulp.watch(paths.ts, ['compile']);
+});</code></pre></figure>
+
+<ul>
+  <li>Now change the <strong>ionic.project</strong> file and add the compile task to the gulpStartupTasks. If the gulpStartupTasks section is not present at all, just add it anyway.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">"gulpStartupTasks": [
+    "sass",
+    "compile",
+    "watch"
+]</code></pre></figure>
+
+<h2 id="2-add-tsd">2. Add TSD</h2>
+
+<p>TSD is a <strong>TypeScript Definition manager</strong> for <a href="http://definitelytyped.org/">DefinitelyTyped</a>.
+TypeScript used TypeScript Definition files so it knows how to handle the TypeScript you are writing and gives you intellisense.
+Let’s install TSD so we can continue.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span><span class="nb">sudo </span>npm <span class="nb">install</span> <span class="nt">-g</span> tsd
+<span class="nv">$ </span>tsd <span class="nb">install </span>ionic cordova <span class="nt">--save</span></code></pre></figure>
+
+<p>This will create a typings folder which contains a tsd.d.ts file with references to the typings needed for ionic and cordova.
+In the root of your project a tsd.json file will be created with all the installed definitions.
+All you need to do to use the typings in your TypeScript file is include it at the top like so:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">/// &lt;reference path="../typings/tsd.d.ts" /&gt;</code></pre></figure>
+
+<p><strong>Note:</strong> TSD has been deprecated in favour of <a href="https://github.com/typings/typings">Typings</a> to manage and install TypeScript definitions.
+More info on how to switch from TSD to Typings can be found <a href="https://github.com/typings/typings/blob/master/docs/tsd.md">here</a>.</p>
+
+<h2 id="3-prevent-editor-from-compiling-on-save">3. Prevent editor from compiling on save</h2>
+
+<p>Now to prevent your editor to auto compile TypeScript we add a tsconfig.json file to the src folder with this in it:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">{
+    "compileOnSave": false
+}</code></pre></figure>
+
+<h2 id="4-add-typescript-files-in-src-folder">4. Add TypeScript files in src folder</h2>
+
+<p>Now that we have everything set up it’s time to start refactoring your application.
+It’s important to know that <strong>every JavaScript file is essentially TypeScript</strong> because TypeScript is a superset of the current JavaScript implementation.
+This basically means that you can take your JavaScript files from your www folder, paste them to the src folder and rename them from <code class="highlighter-rouge">file.js</code> to <code class="highlighter-rouge">file.ts</code>.
+Of course don’t forget to add the reference on top of your files to the tsd.d.ts file in the typings folder.</p>
+
+<p>If you now run <code class="highlighter-rouge">ionic serve</code>, you should see a message that looks like this one. <code class="highlighter-rouge">“Compiling TypeScript files using tsc version x.x.x”</code>.
+TypeScript will process these files and write ES5 files to the www folder.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>As you can see it is fairly simple - just 4 steps - to add TypeScript support to your Ionic project by changing the default gulp setup used by Ionic.
+It’s nice to know that Ionic 2 will have support for TypeScript built in so you won’t have to do it yourself.
+By adding a flag <code class="highlighter-rouge">--ts</code> to your Ionic 2 project setup it will be enabled.</p>
+
+<p>Personally I love using TypeScript and will use it whenever I can.
+It makes my life as a developer a lot easier by spotting errors before I even hit the browser.</p>
+
+<p>What are your thoughts about TypeScript? Feel free to add them in the comments section.</p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/ionic/2016/03/31/Adding-TypeScript-to-Ionic-Framework.html&title=Adding TypeScript to Ionic Framework&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Adding TypeScript to Ionic Framework&url=https://ordina-jworks.github.io/ionic/2016/03/31/Adding-TypeScript-to-Ionic-Framework.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/ionic/2016/03/31/Adding-TypeScript-to-Ionic-Framework.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/jan-de-wilde/" class="image spotlight-image" title="">
+            <img src="/img/author/jan-de-wilde.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Jan De Wilde is a Senior Frontend Developer at Ordina Belgium, focussed on building quality mobile/hybrid applications that are accessible on a big collection of devices. His favorite technologies are Ionic Framework, Angular and TypeScript. Jan is also Practice Manager for the Frontend Practice where he takes care of the development and coaching of employees.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2019 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/ionic-and-typescript.jpg";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>

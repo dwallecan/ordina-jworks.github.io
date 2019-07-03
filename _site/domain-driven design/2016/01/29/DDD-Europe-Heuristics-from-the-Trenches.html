@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Heuristics from the Trenches by Cyrille Martraire - Yannick De Turck">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/DDDEurope2015.jpg"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/domain-driven%20design/2016/01/29/DDD-Europe-Heuristics-from-the-Trenches.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Heuristics from the Trenches by Cyrille Martraire - Yannick De Turck"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/DDDEurope2015.jpg"/>
+
+    
+    <title>Heuristics from the Trenches by Cyrille Martraire - Yannick De Turck &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Heuristics from the Trenches by Cyrille Martraire</h2>
+                
+
+                
+                    Posted Jan 29, 2016
+
+
+    in <a href="/categories/domain-driven-design/">Domain-Driven Design</a>
+
+
+
+    by
+    
+        <a href="/author/yannick-de-turck/">Yannick De Turck</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/domain-driven-design/">Domain-Driven Design</a>, 
+    
+        <a href="/tags/ddd/">DDD</a>, 
+    
+        <a href="/tags/software-craftmanship/">Software Craftmanship</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <blockquote>
+  <p>“Communication usually fails, except by accident” - Osmo Wiio</p>
+</blockquote>
+
+<hr />
+
+<p>With this quote of the Finnish researcher <a href="https://en.wikipedia.org/wiki/Osmo_Antero_Wiio">Osmo Wiio</a>, Cyrille opened the second day of the <a href="http://dddeurope.com">DDD Europe</a> conference. Osmo’s laws of communication are the <strong>human communications equivalent</strong> of Murphy’s law. Basically if communication can fail, it will and if a message can be understood in several different ways it is quite possible that it will be understood in a harmful way. With the quote Cyrille immediately wants to stress that with Domain-Driven Design, deep conversations with domain experts and careful attention to the language are key.</p>
+
+<p><strong>Business domains</strong> are often very complex and hard to get into for individuals not familiar with the domain. The <strong>conversations’ game</strong> with <strong>domain experts</strong> is a game that takes many years and many failures in order to get better at. Cyrille explained that, even though it’s hard, it’s perfectly possible over time to extract a growing set of techniques, heuristics and best practices to boost the effectiveness of the interviews with domain experts, to learn faster and to converge more quickly to better models.</p>
+
+<h3 id="practices-and-tricks-for-talking-to-the-domain-experts">Practices and tricks for talking to the domain experts</h3>
+<p>“Why is it so hard?” you might ask yourself or “We don’t talk the same language as them and they don’t have time for us!”. While it is true that the people with the highest expertise within a certain domain often don’t have a lot of time for interviews or meetings, it is up to us, the developers, to make the <strong>necessary preparations</strong> prior to seeing them. You should first take some time in order to teach yourself some <strong>basic domain knowledge</strong>. It all starts with <strong>genuine curiosity</strong>, successful people are curious about their business domains. You may not believe this but here this will help you too! Without this you will have a bad time! <strong>Do your homework</strong>: perform the necessary research about the domain on the internet, Google around, read books, check Oasis, … Usage of <strong>ubiquitous language</strong> is very important.</p>
+
+<p><strong>Note taking</strong> is also a very important aspect in the whole story. You need to be able to take notes like a pro! Learn to take notes effectively. <strong>Listen actively</strong> and <strong>don’t distort</strong> the stories the domain experts tells you. Keep the words as they are. It really is harder than you would think, so you should turn it into a game:</p>
+
+<ul>
+  <li><strong>Write down the stories</strong> the domain experts tell you</li>
+  <li><strong>Underline new words</strong> and <strong>add a definition</strong> for yourself, get familiar with all the domain terms</li>
+  <li>Take note of <strong>side remarks</strong></li>
+  <li>If you think that you’ve encountered a synonym for an existing new word <strong>dig into it</strong> and <strong>ask for more detail</strong></li>
+  <li><strong>Show your knowledge</strong> to the domain user to <strong>establish credibility</strong> and to challenge them</li>
+  <li>But… Challenge them <strong>respectfully</strong>!</li>
+</ul>
+
+<p>All this is <strong>Domain-Driven Design</strong>!</p>
+
+<h3 id="talking-to-people-is-hard">Talking to people is hard</h3>
+<p>It is not easy talking to people and it will often be hard to have <strong>productive conversations</strong>. However this is also something you can <strong>grow into</strong> and for which you can develop the <strong>right toolset</strong>. Have <strong>interactive conversations</strong>, that way you have control over the conversation and the way you can steer it. Start with “what exactly is the goal?”. <strong>Be precise</strong> when asking questions, we want to avoid having to reverse engineer the true need from an expressed solution. Be sure to <strong>scan the notes</strong> you took during a previous conversation and <strong>decide</strong> where you want the conversation to go next.</p>
+
+<hr />
+<blockquote>
+  <p>“I keep developers out of conversations about the domain because they always want to know ‘why this’ and ‘why that’. Just write your code.” - <a href="https://twitter.com/expertbeginner1/status/656122859773820929">The Expert Beginner</a></p>
+</blockquote>
+
+<hr />
+
+<p>You should <strong>question everything</strong>: ask why but don’t go too far!</p>
+
+<p>Combine Domain-Driven Development with <strong>Behaviour-Driven Development</strong>. Both go hand in hand to interview domain experts. You want to <strong>discover the “unknown unknowns”</strong> as early as possible and to <strong>avoid misunderstandings</strong> as often as possible. Be sure to <strong>ask for concrete examples</strong> and <strong>genuine sample documents and data</strong> and although this doesn’t always come easy, ask and insist but as mentioned before know your limits and be sure not to push it.</p>
+
+<p>People always think that talking abstract is faster and will save time but think about it and ask yourself: “Is it truly faster if we were wrong or missed stuff that matters?”. If the domain expert seems hesitant about something also take note of this to take into account that the feature in question might be eligible for change later on, this way we can <strong>model our software design correctly</strong>.</p>
+
+<h3 id="the-domain-expert-delusion">The domain expert delusion</h3>
+<p>You might assume that the person, you’re having a conversation with, is an actual system expert within the domain but chances are that he/she is not. The worst expert is the one whose expertise was built from the intricacies of the existing systems. It is therefor also our duty to help out the domain expert where possible:</p>
+
+<ul>
+  <li><strong>Have empathy</strong>, try to put yourself in their shoes</li>
+  <li><strong>Build a partnership</strong>, it should be a two-way conversation you’re having with the expert</li>
+  <li><strong>Make it clear</strong> that the domain expert is always safe with you, that you have no plan to steal their job</li>
+  <li><strong>Propose things</strong>, it doesn’t always have to be right but this way you will get somewhere</li>
+  <li><strong>Look for invariants</strong>, for example: “Is there any other outcome that is also important?”</li>
+  <li>Always <strong>ask for validation</strong> of everything, even if you’re sure about it</li>
+</ul>
+
+<p>It is common in companies that businesses often don’t want all power concentrated into the same hands. This also accounts for domains, you should therefor <strong>assume and probe</strong>. Get to know the business you are dealing with and their mentality. Not that if you happen to discover that there are multiple domain experts the situation gets a bit more tricky. Having multiple domain experts may lead to more confusion and makes it even more important asking for validation and challenging the experts. Something we want to achieve is that we want to suggest features from our code which could be very useful for the business. Instead of having software to support the domain we want to have <strong>software augmenting the domain</strong>.</p>
+
+<h3 id="keep-improving-yourself">Keep improving yourself</h3>
+<p><strong>Grow into it</strong> and <strong>build your own toolbox</strong> for implementing Domain-Driven Design. You might ask yourself why you should bother so much with all of this, after all we just want to get to it and write code. This however is a wrong approach because the complexity of the domain is there, it is just hiding behind a wall, you just don’t see it yet. You will discover the complexity sooner or later so you may as well want to get into it as early as possible to save precious time. After all, you want to become a <strong>domain expert</strong> too!</p>
+
+<h3 id="other-useful-resources-mentioned-by-cyrille">Other useful resources mentioned by Cyrille:</h3>
+<ul>
+  <li><a href="http://schd.ws/hosted_files/agile2014/d5/1571_Agile2014__Conversation_Patterns_for_Software_Professionals.pdf">Conversation Patterns for Software Professionals</a> by Michael Bartyzel</li>
+  <li><a href="http://martinfowler.com/books/ap.html">Analysis Patterns</a> by Martin Fowler</li>
+  <li><a href="https://leanpub.com/livingdocumentation">Living Documentation</a> by Cyrille Martraire</li>
+  <li>Slides: <a href="http://www.slideshare.net/cyriux">http://www.slideshare.net/cyriux</a></li>
+  <li>Blog: <a href="http://cyrille.martraire.com">http://cyrille.martraire.com</a></li>
+  <li>Twitter: <a href="https://twitter.com/cyriux">@cyriux</a></li>
+</ul>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/domain-driven%20design/2016/01/29/DDD-Europe-Heuristics-from-the-Trenches.html&title=Heuristics from the Trenches by Cyrille Martraire&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Heuristics from the Trenches by Cyrille Martraire&url=https://ordina-jworks.github.io/domain-driven%20design/2016/01/29/DDD-Europe-Heuristics-from-the-Trenches.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/domain-driven%20design/2016/01/29/DDD-Europe-Heuristics-from-the-Trenches.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/yannick-de-turck/" class="image spotlight-image" title="">
+            <img src="/img/author/yannick-de-turck.jpg"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Yannick is a senior Java consultant and competence lead of the JVM languages competence center at Ordina Belgium. He’s very much interested in everything Java and Spring related as well as reactive programming, Kotlin, Lightbend technologies, software architectures, and coaching and enabling other colleagues.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2019 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/DDDEurope2015.jpg";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>

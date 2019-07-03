@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="HTTP Public Key Pinning with Spring Security - Tim Ysewyn">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/spring-security-logo.png"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/spring/2016/03/05/HTTP-Public-Key-Pinning-with-Spring-Security.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="HTTP Public Key Pinning with Spring Security - Tim Ysewyn"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/spring-security-logo.png"/>
+
+    
+    <title>HTTP Public Key Pinning with Spring Security - Tim Ysewyn &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>HTTP Public Key Pinning with Spring Security</h2>
+                
+
+                
+                    Posted Mar 5, 2016
+
+
+    in <a href="/categories/spring/">Spring</a>
+
+
+
+    by
+    
+        <a href="/author/tim-ysewyn/">Tim Ysewyn</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/spring/">Spring</a>, 
+    
+        <a href="/tags/security/">Security</a>, 
+    
+        <a href="/tags/spring-security/">Spring Security</a>, 
+    
+        <a href="/tags/hpkp/">HPKP</a>, 
+    
+        <a href="/tags/public-key-pinning/">Public Key Pinning</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <h2 id="what-kind-of-sorcery-is-this">What kind of sorcery is this?</h2>
+
+<p>HTTP Public Key Pinning, or short HPKP, is a security mechanism which allows HTTPS websites to resist impersonation by attackers using mis-issued or otherwise fraudulent certificates.
+This was standardized in <a href="http://tools.ietf.org/html/rfc7469">RFC 7469</a> and creates a new opportunity for server validation. Instead of using static certificate pinning, where public key hashes are hardcoded within an application, we can now use a more dynamic way of providing this public key hashes.
+One caveat to remember is that HPKP uses a Trust On First Use (<a href="https://en.wikipedia.org/wiki/Trust_on_first_use">TOFU</a>) technique.</p>
+
+<p><br /></p>
+
+<h2 id="how-does-this-work">How does this work?</h2>
+
+<p>A list of public key hashes will be served to the client via a special HTTP header by the web server, so clients can store this information for a given period of time.
+On subsequent connections within previous given period of time, the client expects a certificate containing a public key whose fingerprint is already known via HPKP.
+I <strong>strongly</strong> encourage you to read <a href="https://timtaubert.de/blog/2014/10/http-public-key-pinning-explained/">this article</a> by Tim Taubert, where he explains what keys you should pin and what the different tradeoffs are.</p>
+
+<p><br /></p>
+
+<p>Imagine you want to terminate the connection between the client and a malicious server for your main domain and all of your subdomains, but also want to be notified when such events happen.
+In the next paragraph you can find the implementation details.</p>
+
+<p><br /></p>
+
+<p>The web server needs to send following header to the connecting client with the first response</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">    Public-Key-Pins:
+        max-age<span class="o">=</span>5184000<span class="p">;</span>
+        pin-sha256<span class="o">=</span><span class="s2">"d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM="</span><span class="p">;</span>
+        pin-sha256<span class="o">=</span><span class="s2">"E9CZ9INDbd+2eRQozYqqbQ2yXLVKB9+xcprMF+44U1g="</span><span class="p">;</span>
+        report-uri<span class="o">=</span><span class="s2">"https://example.net/hpkp-report"</span><span class="p">;</span>
+        includeSubdomains</code></pre></figure>
+
+<p>By specifying the <strong>Public-Key-Pins</strong> header the client MUST terminate the connection without allowing the user to proceed anyway. In this example, <strong>pin-sha256=”d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=”</strong> pins the server’s public key used in production. The second pin declaration <strong>pin-sha256=”E9CZ9INDbd+2eRQozYqqbQ2yXLVKB9+xcprMF+44U1g=”</strong> also pins the backup key. <strong>max-age=5184000</strong> tells the client to store this information for two month, which is a reasonable time limit according to the IETF RFC. This key pinning is also valid for all subdomains, which is told by the <strong>includeSubdomains</strong> declaration. Finally, <strong>report-uri=”https://www.example.net/hpkp-report”</strong> explains where to report pin validation failures.
+<br /><br /></p>
+
+<h2 id="so-how-can-we-implement-this-with-spring-security">So how can we implement this with Spring Security?</h2>
+
+<h3 id="retrieving--the-list-of-public-key-hashes">Retrieving  the list of public key hashes</h3>
+<p>We first need to get a list of public key hashes. Currently the standard only supports the SHA256 hashing algorithm. The following commands will help you extract the Base64 encoded information:</p>
+
+<h5 id="from-a-key-file">From a key file</h5>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">	openssl rsa <span class="nt">-in</span> my-key-file.key <span class="nt">-outform</span> der <span class="nt">-pubout</span> | openssl dgst <span class="nt">-sha256</span> <span class="nt">-binary</span> | openssl enc <span class="nt">-base64</span></code></pre></figure>
+
+<h5 id="from-a-certificate-signing-request-csr">From a Certificate Signing Request (CSR)</h5>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">	openssl req <span class="nt">-in</span> my-signing-request.csr <span class="nt">-pubkey</span> <span class="nt">-noout</span> | openssl rsa <span class="nt">-pubin</span> <span class="nt">-outform</span> der | openssl dgst <span class="nt">-sha256</span> <span class="nt">-binary</span> | openssl enc <span class="nt">-base64</span></code></pre></figure>
+
+<h5 id="from-a-certificate">From a certificate</h5>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">	openssl x509 <span class="nt">-in</span> my-certificate.crt <span class="nt">-pubkey</span> <span class="nt">-noout</span> | openssl rsa <span class="nt">-pubin</span> <span class="nt">-outform</span> der | openssl dgst <span class="nt">-sha256</span> <span class="nt">-binary</span> | openssl enc <span class="nt">-base64</span></code></pre></figure>
+
+<h5 id="from-a-running-web-server">From a running web server</h5>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">	openssl s_client <span class="nt">-servername</span> www.example.com <span class="nt">-connect</span> www.example.com:443 | openssl x509 <span class="nt">-pubkey</span> <span class="nt">-noout</span> | openssl rsa <span class="nt">-pubin</span> <span class="nt">-outform</span> der | openssl dgst <span class="nt">-sha256</span> <span class="nt">-binary</span> | openssl enc <span class="nt">-base64</span></code></pre></figure>
+
+<p><br />
+For now we will assume we got 2 public keys:</p>
+
+<ul>
+  <li>Our active production certificate: <code class="highlighter-rouge">d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=</code></li>
+  <li>Our backup production certificate: <code class="highlighter-rouge">E9CZ9INDbd+2eRQozYqqbQ2yXLVKB9+xcprMF+44U1g=</code></li>
+</ul>
+
+<h3 id="configuring-spring-security">Configuring Spring Security</h3>
+<p>As of version <strong>4.1.0.RC1</strong>, which will be released March 24th 2016, the <code class="highlighter-rouge">HpkpHeaderWriter</code> has been added to the security module. The 2 easiest ways to implement this feature is either by <strong>Java configuration</strong> or by using the older, but still supported, <strong>XML configuration</strong>. Below you can find both solutions:</p>
+
+<h5 id="java-config">Java config</h5>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java">	<span class="nd">@EnableWebSecurity</span>
+	<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HpkpConfig</span> <span class="kd">extends</span> <span class="nc">WebSecurityConfigurerAdapter</span> <span class="o">{</span>
+		<span class="nd">@Override</span>
+		<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">configure</span><span class="o">(</span><span class="nc">HttpSecurity</span> <span class="n">http</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+			<span class="n">http</span><span class="o">.</span><span class="na">httpPublicKeyPinning</span><span class="o">()</span>
+				<span class="o">.</span><span class="na">addSha256Pins</span><span class="o">(</span><span class="s">"d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM="</span><span class="o">,</span> <span class="s">"E9CZ9INDbd+2eRQozYqqbQ2yXLVKB9+xcprMF+44U1g="</span><span class="o">)</span>
+				<span class="o">.</span><span class="na">reportOnly</span><span class="o">(</span><span class="kc">false</span><span class="o">)</span>
+				<span class="o">.</span><span class="na">reportUri</span><span class="o">(</span><span class="s">"http://example.net/hpkp-report"</span><span class="o">)</span>
+				<span class="o">.</span><span class="na">includeSubDomains</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+		<span class="o">}</span>
+	<span class="o">}</span></code></pre></figure>
+
+<h5 id="xml-config">XML config</h5>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml">	<span class="nt">&lt;http&gt;</span>
+		<span class="c">&lt;!-- ... --&gt;</span>
+
+		<span class="nt">&lt;headers&gt;</span>
+			<span class="nt">&lt;hpkp</span>
+				<span class="na">report-only=</span><span class="s">"false"</span>
+				<span class="na">report-uri=</span><span class="s">"http://example.net/hpkp-report"</span>
+				<span class="na">include-subdomains=</span><span class="s">"true"</span><span class="nt">&gt;</span>
+				<span class="nt">&lt;pins&gt;</span>
+					<span class="nt">&lt;pin&gt;</span>d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=<span class="nt">&lt;/pin&gt;</span>
+					<span class="nt">&lt;pin&gt;</span>E9CZ9INDbd+2eRQozYqqbQ2yXLVKB9+xcprMF+44U1g=<span class="nt">&lt;/pin&gt;</span>
+				<span class="nt">&lt;/pins&gt;</span>
+			<span class="nt">&lt;/hpkp&gt;</span>
+		<span class="nt">&lt;/headers&gt;</span>
+	<span class="nt">&lt;/http&gt;</span></code></pre></figure>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/spring/2016/03/05/HTTP-Public-Key-Pinning-with-Spring-Security.html&title=HTTP Public Key Pinning with Spring Security&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=HTTP Public Key Pinning with Spring Security&url=https://ordina-jworks.github.io/spring/2016/03/05/HTTP-Public-Key-Pinning-with-Spring-Security.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/spring/2016/03/05/HTTP-Public-Key-Pinning-with-Spring-Security.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/tim-ysewyn/" class="image spotlight-image" title="">
+            <img src="/img/author/tim-ysewyn.png"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Tim is a Principal Consultant at Ordina, where he helps fellow developers discovering top-notch technologies and methodologies as a Competence Leader for API &amp; Microservices. You can also find him working on various parts of the <a href="https://www.spring.io" target="_blank">Spring</a> framework or helping out at <a href="https://ng-be.org" target="_blank">NG-BE</a>. When you can't get a hold of him, he will probably be under water since he is also an underwater photographer &amp; rescue diver.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2019 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/spring-security-logo.png";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>

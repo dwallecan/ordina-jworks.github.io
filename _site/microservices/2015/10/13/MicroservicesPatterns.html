@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+        <meta charset="utf-8">
+    <meta name="description" content="We build innovative solutions with Java and JavaScript. To support this mission, we have several Competence Centers. From within those Competence Centers, we provide coaching to the employee and expert advice towards our customer. In order to keep in sync with the latest technologies and the latest trends, we frequently visit conferences around the globe.
+">
+    <meta name="keywords" content="Ordina,ORAJ,JWorks,Blog,Java,JavaScript,TypeScript,Angular,DevOps">
+    <meta name="author" content="Ordina Belgium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicons/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicons/favicon-128.png" sizes="128x128" />
+
+    
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Applying software patterns to microservices - Ken Coenen">
+    <meta name="twitter:description" content="Ordina JWorks Tech Blog">
+    <meta name="twitter:image" content="http://ordina-jworks.github.io/img/jax2015_logo.jpg"/>
+
+    <!-- Facebook Open Graph -->
+    <meta property="og:url" content="http://ordina-jworks.github.io/microservices/2015/10/13/MicroservicesPatterns.html"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Applying software patterns to microservices - Ken Coenen"/>
+    <meta property="og:description" content="Ordina JWorks Tech Blog"/>
+    <meta property="og:image" content="http://ordina-jworks.github.io/img/jax2015_logo.jpg"/>
+
+    
+    <title>Applying software patterns to microservices - Ken Coenen &mdash; Ordina JWorks Tech Blog</title>
+    
+
+        <!-- Styles -->
+    <!-- Font awesome CSS -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Magnific Popup -->
+    <link href="/css/magnific-popup.css" rel="stylesheet">
+    <!-- Owl carousel -->
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+
+    <!-- CSS for this page -->
+
+    <!-- Syntax highlighting -->
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <!--[if lte IE 8]>
+    <script src="/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/css/main.css"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ie9.css"/><![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/ie8.css"/><![endif]-->
+
+    <!-- Custom CSS. Type your CSS code in custom.css file -->
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Vertical timeline -->
+	<link rel="stylesheet" href="/css/vertical-timeline/style.css"> <!-- Resource style -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+    <script src="https://use.typekit.net/gzh0mbm.js"></script>
+    <script>
+        try {
+            Typekit.load({async: true});
+        } catch (e) {
+        }
+    </script>
+</head>
+
+<body>
+<div id="header-image"></div>
+
+
+<!-- Page Wrapper -->
+<div id="page-wrapper">
+
+        <!-- Header -->
+    <header id="header">
+        <h1>
+            <a href="/">
+                JWorks Tech Blog
+            </a>
+        </h1>
+
+        <nav>
+            <a href="#menu">Menu</a>
+            <form action="/search/" method="get" class="header-search search-form">
+                <input type="text" id="search-box-header" name="query" placeholder="Search &hellip;">
+            </form>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <div class="inner">
+            <h2>Menu</h2>
+            <ul class="links">
+                <li class="menu-item"><a href="/">Home</a></li>
+                <li class="menu-item"><a href="/about">About Us</a></li>
+                <li class="menu-item"><a href="/jobs">Jobs</a></li>
+                <li class="menu-item"><a href="/launch-your-career">Career</a></li>
+                <li class="menu-item"><a href="/tech-radar">Tech Radar</a></li>
+                <li class="menu-item"><a href="/search">Search</a></li>
+                <li class="menu-item"><a href="/contact">Contact Us</a></li>
+            </ul>
+            <a href="#" class="close">Close</a>
+        </div>
+    </nav>
+
+    <section id="banner">
+        <header>
+            <div class="inner">
+                
+
+                <h2>Applying software patterns to microservices</h2>
+                
+
+                
+                    Posted Oct 13, 2015
+
+
+    in <a href="/categories/microservices/">Microservices</a>
+
+
+
+    by
+    
+        <a href="/author/ken-coenen/">Ken Coenen</a>
+        
+    
+
+
+
+    <br/>
+    <i class="fa fa-tags"></i>
+    
+        <a href="/tags/microservices/">Microservices</a>, 
+    
+        <a href="/tags/software-patterns/">Software Patterns</a>
+    
+
+                
+
+                
+
+            </div>
+        </header>
+    </section>
+
+    <section id="wrapper">
+        <div class="inner">
+            <section id="one" class="wrapper spotlight style1 post-body">
+    <div class="inner" style="text-align: left;">
+        <div class="content">
+            <blockquote>
+  <p>During the week of October 12th, my colleagues Andreas Evers and Tim De Bruyn and me attended JAX London 2015. After attending over a dozen talks in three days, we went home with tons of insights about DevOps, microservices, Continuous Delivery, Spring Boot and much more. This is a write-up of Chris Richardson’s talk <a href="https://jaxlondon.com/session/a-pattern-language-for-microservices/">A pattern language for microservices</a>.</p>
+</blockquote>
+
+<hr />
+
+<p><span class="image left small"><img class="p-image" alt="Chris Richardson" src="/img/2015-10-13-MicroservicesPatterns/chris-richardson.jpg" /></span>
+<a href="http://www.chrisrichardson.net/">Chris Richardson</a> is the author of <a href="https://www.manning.com/books/pojos-in-action">POJOs in Action</a> and is founder of the original CloudFoundry, which was later acquired by VMWare and then SpringSource. Nowadays he is constantly thinking about microservices and founded a startup that is creating a platform for aiding the development of event-driven microservices (http://eventuate.io/). He also launched http://microservices.io/, describing microservice responsibilities and commonly accepted solutions as patterns.</p>
+
+<p style="clear:both;"></p>
+
+<hr />
+
+<h1 id="problems-in-software-engineering">Problems in software engineering</h1>
+
+<p>Chris started his presentation by pointing out a few problems in software engineering. First, we have a lot of sucks/rocks discussions between developers. JavaScript vs. Java, Spring vs. JEE, Java vs. .NET, functional programming vs. object-oriënted programming, containers vs. virtual machines, … Sounds familiar? But these discussions are usually very subjective and shallow. Back in 1986, Fred Brooks already mentioned in a paper on software engineering that <strong>there is no such thing as a silver bullet</strong>. So there is no right or wrong answer to which language or framework is better, it depends on the situation.</p>
+
+<p>A second problem is that we have <strong>a lot of new technologies</strong> these days. Typically, these technologies go through the <em>Gartner Hype Cycle</em>.</p>
+
+<!---
+<span class="image left"><img  class="" alt="Gartner Hype Cycle" src="https://www.ordina.be/~/media/images/ordinabe/blogs/ken3v2.png?la=nl-nl"></span>
+--->
+
+<p style="clear:both;"></p>
+
+<p>At first, people discover an innovative technology and everybody wants to use it, which drives the technology into the <em>Peak of Inflated Expectations</em>. Docker is a good example of a technology in this phase. Then a huge drop follows, because people didn’t really understand the technology and misused it. When we start to <strong>understand the subject</strong>, that’s when productivity on the market increases.</p>
+
+<p>It’s clear that we need a better way to discuss and think about technology. That’s where software patterns come in.</p>
+
+<h1 id="pattern-languages">Pattern languages</h1>
+
+<p>Patterns help us to <strong>describe a reusable solution to a problem occurring in a particular context</strong>. The use of pattern languages is a a great way of talking about technology in general. You can see it as an advice around a topic. Describing what you want to solve and its context is much more important than the framework or tool you choose.</p>
+
+<p>A pattern description typically contains:</p>
+
+<ul>
+  <li>Pattern name</li>
+  <li>Context</li>
+  <li>Problem - The issue which we try to solve</li>
+  <li>Forces, which are a set of indicators why we want to use the pattern, eg. we need to do CD, run multiple instances, …</li>
+  <li>Solution. What would a pattern be without a solution?</li>
+  <li>Resulting context. Set of both benefits and downsides which we achieved, but also problems which we then have to solve next.</li>
+</ul>
+
+<p>Patterns can be <strong>related</strong>, they can be alternate solutions, solutions to problems that were caused by another pattern or more specific solutions to a certain problem. When you want to read more about writing and understanding patterns, you can read Martin Fowler’s blog post <a href="http://www.martinfowler.com/articles/writingPatterns.html">Writing Software Patterns</a>.</p>
+
+<h1 id="patterns-for-the-microservices-world">Patterns for the microservices world</h1>
+
+<p>Microservices is another one of those new technologies which are in <em>Peak of Inflated Expectations</em> phase. To help us understand the complexity of implementing these kind of systems, Chris founded http://microservices.io/ . Here you can find a collection of microservices patterns.
+We can group the microservices patterns into several categories:</p>
+
+<ol>
+  <li>Core patterns</li>
+  <li>Deployment patterns</li>
+  <li>Discovery patterns</li>
+</ol>
+
+<!--- 
+<img class="image fit" src="https://www.ordina.be/~/media/images/ordinabe/blogs/ken4.png?la=nl-nl" alt="Microservices patterns" />
+
+Chris then elaborated on a few microservice pattern categories.
+--->
+
+<h1 id="core-patterns">Core patterns</h1>
+
+<p><strong>Monolithical applications</strong> tend to be simple to develop, test, deploy and scale. You can just run multiple copies of your monolithical application. When the application is large however, you end up in <em>monolithic hell</em>:</p>
+
+<ul>
+  <li>Millions of lines of code undermine developer productivity and knowledge of the system.</li>
+  <li>As one change might affect other parts of the application, there’s a fear of changing and refactoring code</li>
+  <li>Developer productivity decreases, as your IDE gets slower, startup times of the server take very long, …</li>
+  <li>Long-term commitment to a technology stack</li>
+</ul>
+
+<p>With X and Z axis scaling, you increase the number of application instancess or you increase server resources. Y axis scaling on the other hand means you break up your application into separate <strong>microservices</strong> which group business functionality. Some <strong>benefits</strong> to this are:</p>
+
+<ul>
+  <li>Smaller, simpler apps, which are easier to understand</li>
+  <li>Less classpath hell</li>
+  <li>Faster to build and deploy</li>
+  <li>Improve fault isolation</li>
+  <li>Eliminates the long-term commitment to a single technology stack</li>
+</ul>
+
+<p>Of course, each solution always has some <strong>drawbacks</strong>, to which fortunately solutions exist.</p>
+
+<ul>
+  <li>Added complexity of developing a distributed system</li>
+  <li>We have to handle partial failures</li>
+  <li>Implement business transactions that span multiple databases</li>
+  <li>More complex testing: what do we do with transitive dependencies? Do we mock them?</li>
+  <li>What about managing communication for cross-service development and deployment?</li>
+</ul>
+
+<h1 id="deployment-patterns">Deployment patterns</h1>
+
+<p>Forces to consider when deploying microservices are:</p>
+
+<ul>
+  <li>Variety of languages</li>
+  <li>Building and deploying must be fast</li>
+  <li>Isolate service instances</li>
+  <li>Deploying must be cost-effective</li>
+</ul>
+
+<p>For these, you can look at the deployment patterns.</p>
+
+<ul>
+  <li><a href="http://microservices.io/patterns/deployment/service-per-vm.html">Service per VM</a> = <a href="https://packer.io/">Packer.io</a> is a great tool for running each service
+in its own VM. Downside is you got the overhead of a whole VM per
+microservice. It is very expensive and the deployment itself is
+relatively slow. A positive thing though is that the AWS
+infrastructure is very mature and reliable.</li>
+  <li><a href="http://microservices.io/patterns/deployment/service-per-container.html">Service per container</a> = Each service is in its own Docker container, which is started very quickly. A drawback is that these technologies are still very immature.</li>
+</ul>
+
+<h1 id="discovery-patterns">Discovery patterns</h1>
+
+<p>One problem we need to address around the area of service discovery is that we need to know the IP address of the server. Simply having configuration files with the IP’s wont work anymore. On top of that, the set of API interfaces can change. And this is just a tip of the iceberg.</p>
+
+<p>There are several patterns related to service discovery:</p>
+
+<ul>
+  <li><a href="http://microservices.io/patterns/client-side-discovery.html">Client-side discovery</a> = The client will query the service registry,
+pick one from the load balancing configuration, and then use it.
+Netflix’ <a href="https://github.com/Netflix/eureka">Eureka</a> and <a href="https://github.com/Netflix/ribbon">Ribbon</a> provide this functionality. Multiple
+Eureka’s can be clustered.</li>
+  <li><a href="http://microservices.io/patterns/server-side-discovery.html">Server-side discovery</a> = At some level it’s
+the same like client-side discovery. The difference is that the
+    client makes a request to the router, which then queries t he service registry. You can achieve this with eg. <a href="https://www.nginx.com/">Nginx</a> as the router and an Elastic Load Balancer from AWS. The advantage is that the client code is much simpler. Advantage is that it’s built in in some cloud/container environments, such as AWS ELB, Google’s <a href="http://kubernetes.io/">Kubernetes</a>, <a href="https://mesosphere.github.io/marathon/">Marathon</a>, …</li>
+</ul>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>Over the years, companies like Netflix, LinkedIn, Soundcloud and many others have applied the microservices architecture in their software landscape, with several tools and open-source libraries as a result. But deep down these tools have to tackle the same problems. Chris’ effort to describe these common problems and solutions in software patterns allows us to see the wood for the trees again. Because as I said earlier, knowing what you want to achieve is much more important than the framework or tool you choose.</p>
+
+        </div>
+    </div>
+    <div class="share-page" >
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ordina-jworks.github.io/microservices/2015/10/13/MicroservicesPatterns.html&title=Applying software patterns to microservices&source=https://ordina-jworks.github.io" rel="nofollow" target="_blank" title="Share on LinkedIN">
+            <img src="/img/social-media/LinkedIn.png"
+                 alt="Share on LinkedIn" />
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Applying software patterns to microservices&url=https://ordina-jworks.github.io/microservices/2015/10/13/MicroservicesPatterns.html&via=lifeatordinabe&related=lifeatordinabe" rel="nofollow" target="_blank" title="Share on Twitter">
+            <img src="/img/social-media/Twitter.png"
+                 alt="Share on Twitter" />
+        </a>
+        <a href="https://facebook.com/sharer.php?u=https://ordina-jworks.github.io/microservices/2015/10/13/MicroservicesPatterns.html" rel="nofollow" target="_blank" title="Share on Facebook">
+            <img src="/img/social-media/Facebook.png"
+                 alt="Share on Facebook" />
+        </a>
+    </div>
+        
+</section>
+
+
+<section id="two" class="wrapper alt spotlight style2">
+    
+    <div class="inner">
+        <a href="/author/ken-coenen/" class="image spotlight-image" title="">
+            <img src="/img/author/ken-coenen.png"
+                 alt="" class="p-image"/>
+        </a>
+
+        <div class="content">
+            
+            <p><p>Ken is a Principal Java Consultant at Ordina, passionate about all Java- and JavaScript related technologies. Aside from his day-to-day occupation as a consultant, he is also Backend Practice Manager of the Ordina JWorks unit. In this capacity, he narrows the gap between consultants and potential innovative customer projects. He does this by organizing workshops, talks and courses about the newest technologies, whereby people can grow in their role as a software consultant.</p>
+</p>
+            
+        </div>
+    </div>
+    
+</section>
+
+        </div>
+    </section>
+</div>
+
+
+
+<footer>
+    <div class="contact">
+        <div class="address">
+            <div class="icon"><i class="fa fa-fw fa-home"></i></div>
+            <div class="text">Ordina Belgium<br/>Blarenberglaan 3B,<br/>2800 Mechelen, Belgium</div>
+        </div>
+        <div class="phone">
+            <div class="icon"><i class="fa fa-fw fa-phone"></i></div>
+            <div class="text"><a href="tel:003215295858">+32 15 29 58 58</a></div>
+        </div>
+        <div class="email">
+            <div class="icon"><i class="fa fa-fw fa-envelope-o"></i></div>
+            <div class="text"><a href="mailto:jworks@ordina.be">jworks@ordina.be</a></div>
+        </div>
+    </div>
+    <ul class="social">
+        <li>
+            <a href="https://twitter.com/lifeatordinabe" target="_blank">
+                <i class="fa fa-fw fa-twitter"></i><span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/lifeatordinabe" target="_blank">
+                <i class=" fa fa-fw fa-facebook"></i><span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/company/ordina-belgium" target="_blank">
+                <i class=" fa fa-fw fa-linkedin"></i><span>LinkedIn</span>
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/113222464071666722451" target="_blank">
+                <i class=" fa fa-fw fa-google-plus"></i><span>Google+</span>
+            </a>
+        </li>
+        <li>
+            <a href="/youtube" target="_blank">
+                <i class=" fa fa-fw fa-youtube"></i><span>YouTube</span>
+            </a>
+        </li>
+        <li>
+            <a href="/github" target="_blank">
+                <i class=" fa fa-fw fa-github"></i><span>GitHub</span>
+            </a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank">
+                <i class=" fa fa-fw fa-rss"></i><span>RSS Feed</span>
+            </a>
+        </li>
+    </ul>
+    <div class="copyright">
+        &copy; 2019 Ordina JWorks. All rights reserved.
+        <br /> Disclaimer: Opinions expressed on this blog reflect the writer's views and not the position of Ordina
+        <img id="analyticsImg" src="" width="1" height="1" style="border: 0px"/>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/jquery.pin.min.js"></script>
+<script src="/js/util.js"></script>
+<!--[if lte IE 8]>
+<script src="/js/ie/respond.min.js"></script><![endif]-->
+
+
+<script>
+    var imageHref = "/img/jax2015_logo.jpg";
+    $(function () {
+        $('body').addClass('toggle');
+    });
+</script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- Google Analytics -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o);
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-70040502-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    window.addEventListener('load', function () {
+        if (window.ga && ga.create) {
+            console.log('GA loaded correctly');
+        } else {
+            console.log('GA is blocked or failed to load - tracking manually...')
+            document.getElementById('analyticsImg').src = 'https://jworks-techblog-analytics.cfapps.io/collect?title=' + document.title;
+        }
+    }, false);
+</script>
+
+<!-- Vertical timeline -->
+<script src="/js/vertical-timeline/modernizr.js"></script>
+<script src="/js/vertical-timeline/main.js"></script>
+
+
+</body>
+</html>
