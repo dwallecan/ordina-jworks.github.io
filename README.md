@@ -54,7 +54,7 @@ Install RVM using:
 
 Install ImageMagick using:
 
-    $ sudo apt-get imagemagick
+    $ sudo apt install imagemagick
 
 After installing RVM and ImageMagick, execute the following commands to install Ruby and set up Jekyll:
 
@@ -64,8 +64,8 @@ After installing RVM and ImageMagick, execute the following commands to install 
 
 Create a new folder inside your personal folder and checkout the blog:
 
-    $ cd c
-    $ cd Users/
+    $ cd /
+    $ cd mnt/c/Users/
 
 Select your personal folder (eg. AbCd) and create a new folder "projects" inside:
 
