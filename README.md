@@ -62,8 +62,14 @@ After installing RVM and ImageMagick, execute the following commands to install 
     $ rvm use 2.4.0
     $ gem install bundler
 
-Create a new folder and checkout the blog:
+Create a new folder inside your personal folder and checkout the blog:
 
+    $ cd c
+    $ cd Users/
+
+Select your personal folder (eg. AbCd) and create a new folder "projects" inside:
+
+    $ cd AbCd/
     $ sudo mkdir projects
     $ cd projects/
     $ sudo git clone https://github.com/ordina-jworks/ordina-jworks.github.io
