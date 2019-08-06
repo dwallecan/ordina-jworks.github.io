@@ -44,6 +44,40 @@ If you are unable to run `rvm install 2.4.0` execute the following:
     - If your post is to be published in the future, run `jekyll serve --future`
 - Browse to [http://localhost:4000/](http://localhost:4000/)
 
+## Setting up Jekyll on your Windows pc
+Install Ubuntu subsystem using the guide at [https://docs.microsoft.com/en-us/windows/wsl/install-win10](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+
+Install RVM using:
+
+    $ gpg --keyserver hkp://ipv4.pool.sks-keyservers.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+    $ \curl -sSL https://get.rvm.io | bash -s stable --rails 
+
+Install ImageMagick using:
+
+    $ sudo apt-get imagemagick
+
+After installing RVM and ImageMagick, execute the following commands to install Ruby and set up Jekyll:
+
+    $ rvm install 2.4.0
+    $ rvm use 2.4.0
+    $ gem install bundler
+
+Create a new folder and checkout the blog:
+
+    $ sudo mkdir projects
+    $ cd projects/
+    $ sudo git clone https://github.com/ordina-jworks/ordina-jworks.github.io
+
+Install the bundle:
+
+    $ cd ordina-jworks.github.io/
+    $ bundle install
+
+## Running Jekyll on your Windows pc
+- Run `jekyll serve` in the root directory of the tech blog
+    - If your post is to be published in the future, run `jekyll serve --future`
+- Browse to [http://localhost:4000/](http://localhost:4000/)
+
 ## Add yourself as an author
 - Create a **feature branch**, starting from **source**: feature/author-update-john-doe
 - Add yourself to the **_data/authors.yml** file
