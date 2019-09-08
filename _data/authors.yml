@@ -827,3 +827,73 @@ duncan_casteleyn:
   title: Intern
   email: duncan.casteleyn@ordina.be
   bio: Duncan is a Java Consultant at Ordina Belgium, who is passionate about Java technologies. He likes to explore Spring Boot, Kotlin and other new technologies that he can use to develop applications.
+imad_hamroun:
+  first_name: Imad
+  last_name: Hamroun
+  github: ImadHamroun
+  linkedin:
+  permalink: /author/imad-hamroun/
+  avatar: imad-hanroun.jpg
+  title:
+  email: imad.hamroun@ordina.be
+  bio: TODO
+mohammed_laghzaoui:
+  first_name: Mohammed
+  last_name: Laghzaoui
+  github: Laghzaouim
+  linkedin:
+  permalink: /author/mohammed-laghzaoui/
+  avatar: mohammed-laghzaoui.jpg
+  title:
+  email: mohammed.laghzaoui@ordina.be
+  bio: TODO
+nicholas_meyers:
+  first_name: Nicholas
+  last_name: Meyers
+  github: nicholasM95
+  linkedin:
+  permalink: /author/nicholas-meyers/
+  avatar: nicholas-meyers.jpg
+  title:
+  email: nicholas.meyers@ordina.be
+  bio: TODO
+lennert_peeters:
+  first_name: Lennert
+  last_name: Peeters
+  github: LennertPeeters
+  linkedin:
+  permalink: /author/lennert-peeters/
+  avatar: lennert-peeters.jpg
+  title:
+  email: lennert.peeters@ordina.be
+  bio: TODO
+jasper_rosiers:
+  first_name: Jasper
+  last_name: Rosiers
+  github: jasperrosiers
+  linkedin:
+  permalink: /author/jasper-rosiers/
+  avatar: jasper-rosiers.jpg
+  title:
+  email: jasper.rosiers@ordina.be
+  bio: TODO
+lore_vanderlinden:
+  first_name: Lore
+  last_name: Vanderlinden
+  github: LoreVdl
+  linkedin:
+  permalink: /author/lore-vanderlinden/
+  avatar: lore-vanderlinden.jpg
+  title:
+  email: lore.vanderlinden@ordina.be
+  bio: TODO
+brecht_porrez:
+  first_name: Brecht
+  last_name: Porrez
+  github: BrechtPorrez
+  linkedin:
+  permalink: /author/brecht-porrez/
+  avatar: brecht-porrez.jpg
+  title:
+  email: brecht.porrez@ordina.be
+  bio: TODO
