@@ -1,7 +1,7 @@
 ---
 layout: post
 authors: [tim_schmitte]
-title: 'Building the applications of tomorrow with Kotlin coroutines, R2DBC and Spring webflux'
+title: 'Should you adopt Kotlin coroutines in your Spring Boot Application? '
 image: /img/todo.jpg
 tags: [Spring,Spring Boot,R2DBC,Webflux,Reactive,Coroutines,Kotlin]
 category: Reactive
@@ -14,71 +14,43 @@ Want to create an application using a comfortable imperative style yet still eff
 
 Maybe Kotlin's coroutines are the answer. 
 
-Coroutines are essentially light weight processes which can run in the same thread and 
-'yield' to eachother when they have to wait(for example when doing an expensive REST or database call). 
+Functional reactive programming has been all the hype in recent years but let's face it;
+these libraries completely change the way we program. They require a dramatic shift in thinking and getting(and keeping)
+your whole team on board might be a pain. On top of that, in my experience it's overkill for many use cases.
+
+As we'll see with Kotlin's coroutines we're gonna try to keep a comfortable imperative style while retaining many of the benefits of
+asynchronous programming. 
+
+## What are Coroutines?
+
+Coroutines are essentially lightweight processes which can run in the same thread and 
+'yield' to one another when they have to wait(for example when doing a network or database call). 
 Thread creation is expensive since each thread requires memory for it's stack and reserving it costs time and space.
 Coroutines don't have this issue, they can reuse the same thread.
 
+Coroutines work very different from Java threads, threads are scheduled preemptively. The jvm's scheduler, 
+a central entity, knows which threads are available and schedules 
+their execution to assure that every thread gets an appropriate time slice, it can interrupt them and switch 
+to advancing other threads.
 
-##  Why coroutines ?
+Coroutines are tasks which keep running until they finish or yield.
+then some kind of dispatcher is responsible for allowing another coroutine to do it's work.
+This also means that the programmer is responsible for letting the coroutines yield in time so other coroutines 
+can do their work.
+The advantage of this system is that you know that the operations in a single coroutine are executed sequentially 
+until a yield happens or the task finishes!
 
-As you may have noticed in the last few years there's been increased attention for efficient resource usage; 
-there's multiple reasons for this.
-- Smartphones and their apps increased the amount of clients for applications
-- Many more small devices running on limited battery life and increasing expectations from users about their responsiveness.
-- Processor speeds are reaching their limits
-- Applications are often being run in the cloud and the cost is based on the amount of resources used.
-- The microservices architecture gained a lot of momentum in recent years=> many small applications need to communicate a lot with eachother
-=> many (expensive) network calls
-- ...
-
-Here are some solutions
-* Putting expensive calls on separate threads(background threads) 
-    - Threads are expensive, creating on the fly creates performance overhead, keeping them in a pool consumes resources unnecessarily
-* Callbacks
-    - Google callback hell
-    - error handling tends to be a pain
-* Futures/Promises/...
-    + These kind of api's help avoid callback hell, by returning resultwrappers on which you can chain methods 
-    to do something with the eventually returned results.
-    - Different programming model
-    - Not standardized, many different apis
-* Functional Reactive programming:
-    + Very efficient resource usage
-    + Modern frameworks (Spring in the java world) are quickly adopting it and its reaching maturity
-    + Ported to many different environments, different implementations have similar api's
-    + Improved error handling
-    - Different programming model
-    - Transparency 
-* Coroutines!
-    + Very efficient
-    + No dramatic shift in programming style from good old fashioned imperative programming
-    + Transparency
-    - Still in its infancy in the java world
-    
-    
-## How do they work?
-Coroutines work very differently than Java threads, threads are preemptively scheduled, 
-meaning the jvm's scheduler, a central entity, schedules execution of the different threads to assure that every thread gets an appropriate time slice,
-this means the jvm's scheduler will interrupt them and switch to advancing other threads regularly.
-Coroutines however keep running until they yield, then some kind of dispatcher is responsible for allowing another coroutine to do it's work.
-This means the application needs to know which coroutines are available:  enter the CoroutineScope
-
-This also means that you have to be careful when you have a heavy process running in a coroutine because 
-it will block the other coroutines running on the same thread until it yields.
-
-Threads also have their own scope, if an exception is thrown and propagated to the top of the stack it kills the thread(TODO: correct wording?).
+Moreover, coroutines do not end until all sub coroutines end, they run in a hierarchy.
+This makes coroutines a lot easier to reason about because this way no runaway side processes are spawned.
 
 ## Coroutines in Kotlin
 
-The Kotlin language itself only has support for coroutines, in the philosophy of the language the actual implementation is done by libraries.
-The 1 they offer themselves is called Kotlinx-coroutines.
-## Examples: 
+The Kotlin language itself only has support for coroutines.
+In the philosophy of the language the actual implementation is done by libraries.
+The one they offer themselves is called Kotlinx-coroutines.
 
-### setup
-
-### a simple test 
-Let's try testing the build in delay function using junit 5
+### A simple example
+Let's try testing the built in delay function using junit 5
 
 
 ```kotlin
@@ -96,9 +68,12 @@ Let's try testing the build in delay function using junit 5
      }
 ```
 
-Hey wait, this doesn't compile! Coroutines need a scope to run in.
-Obviously since we're trying to test async code we will need to block here.
-Luckily Kotlinx provides us with a function to do this for is.
+Hey wait, this doesn't compile! This is where Kotlin's language features come in.
+As i explained earlier coroutines need to be run in a scope!
+Notice the 'suspend' keyword on the delay function, this tells kotlin that this function can yield and needs to be run in a coroutine scope, 
+'suspend' functions can only be run from inside a coroutine scope, meaning another suspending function or a function providing a coroutine scope.
+Luckily kotlinx provides us with a few nice functions to easily setup a coroutine scope and get started.
+In this case we will be using runBlocking since we don't want our test to finish until all coroutines finished execution. 
 Ideally there should be no need to use runBlocking in your production code,
 but if you need to call coroutines from existing blocking code you may need to.
 
@@ -120,16 +95,16 @@ Lets try a more advanced example with 2 coroutines
 ```kotlin
    runBlocking {
             launch {
-                println("sub cr1: starting")
-                println("sub cr1: yielding sub coroutine 1")
+                println("cr1: starting")
+                println("cr1: yielding sub coroutine 1")
                 delay(1000)
-                println("sub cr1: resuming sub coroutine 1")
+                println("cr1: resuming sub coroutine 1")
 
             }
 
             launch{
-                println("sub cr2: starting sub coroutine 2")
-                println("sub cr2: ending sub coroutine 2")
+                println("cr2: starting sub coroutine 2")
+                println("cr2: ending sub coroutine 2")
             }
             println("ending main coroutine" )
         }
@@ -137,13 +112,238 @@ Lets try a more advanced example with 2 coroutines
 
 output 
 ```text 
-sub cr1: starting
-sub cr1: yielding sub coroutine 1
-sub cr2: starting sub coroutine 2
-sub cr2: ending sub coroutine 2
-sub cr1: resuming sub coroutine 1
+cr1: starting
+cr1: yielding sub coroutine 1
+cr2: starting sub coroutine 2
+cr2: ending sub coroutine 2
+cr1: resuming sub coroutine 1
 ```
-As you can see first coroutine does not block!
-The delay function suspends the current coroutine and allows the dispatcher to instead run coroutine 2!
-Which after finishing automatically yields, allowing the dispatcher to execute coroutine 1.
+As you can see; the first coroutine does not block other coroutines from executing!
+The delay function yields and the current coroutine is suspended, which allows the dispatcher to instead run coroutine 2!
+Which after finishing automatically yields, allowing the dispatcher to continue coroutine 1.
 
+### Writing your own suspending functions
+Let's figure out how delay achieves this by writing our own suspending function.
+
+```kotlin
+    private suspend fun suspendingFunction(): String = withContext(Dispatchers.Default) {
+            println("coroutine 1 dispatched starting execution")
+
+            Thread.sleep(5000)
+            println("coroutine 1 dispatched executed")
+
+            return@withContext "result of subcoroutine"
+    }
+    
+    @Test
+    internal fun selfImplementedSuspendingFunction() {
+        runBlocking {
+            launch {
+                println("coroutine 1 starting execution")
+                println("coroutine 1 calling suspending function")
+                val suspendedCoroutineResult = suspendingFunction()
+                println("coroutine 1 executed, result was : " + suspendedCoroutineResult)
+            }
+            launch{
+                println("coroutine 2 executed")
+            }
+        }
+    }
+```
+
+output: 
+
+```text
+coroutine 1 starting execution
+coroutine 1 calling suspending function
+coroutine 2 executed
+coroutine 1 dispatched starting execution
+coroutine 1 dispatched executed
+coroutine 1 executed, result was : result of subcoroutine
+```
+
+What actually happens here is kotlin switching the 'expensive' call implemented in #suspendingFunction() 
+to a different Context which usually means a different Thead.
+The key to this is the withContext() function. 
+Obviously if you're concern is resource usage this is not solving anything as instead of blocking the main thread, 
+you will block another thread. Although it allows other coroutines to be run in the current context and gives you 
+a degree of flexibility on where this blocking code should be run. 
+
+To spice things up i also added a return type in this function, as you can see you can seemingly call this function as 
+if it was a normal method and seemingly immediately use the return value!
+
+### Exception handling
+
+When using other approaches like Promises , callbacks or reactive we usually pass a sort of on error function somewhere, 
+highly dependant on the API we're using. 
+
+Let's see what this looks like with Kotlin coroutines.
+
+```kotlin
+    @Test
+    internal fun exceptionHandling() {
+        runBlocking {
+            try {
+                throwingFunction()
+            } catch (e: Exception) {
+                println("Caught exception")
+            }
+        }
+    }
+
+    private suspend fun throwingFunction() = withContext(Dispatchers.Default){
+        if(1==2){
+            return@withContext "impossible"
+        }
+        throw RuntimeException("Totally unexpected exception")
+    }
+
+```
+
+It's just plain old try catch!
+
+### Parallelism
+
+By default coroutines run sequentially, though concurrently. 
+Until a yield happens all code is executed sequentially. 
+Concurrency just means that multiple different coroutines can be run intermittently.
+If you do want to run through processes in parallel you need to use the async function. 
+
+```kotlin
+    val startTime = System.currentTimeMillis()
+    runBlocking {
+        val asyncCoroutine1Result: Deferred<String> = async {
+            delay(1500)
+            println("async coroutine 1 returning after ${System.currentTimeMillis() - startTime} millis " )
+
+            return@async "result of async coroutine 1"
+        }
+
+        val asyncCoroutine2Result: Deferred<String> = async {
+            delay(2000)
+            println("async coroutine 2 returning after ${System.currentTimeMillis() - startTime} millis " )
+            return@async "result of async coroutine 2"
+        }
+
+        println("Awaiting results of both coroutines in top coroutine after ${System.currentTimeMillis() - startTime} millis")
+        println("result of both functions was ${asyncCoroutine1Result.await() + ' ' + asyncCoroutine2Result.await()} after ${System.currentTimeMillis() - startTime} millis")
+    }
+```
+
+output:
+```text
+Awaiting results of both coroutines in top coroutine after 1 millis
+async coroutine 1 returning after 1507 millis 
+async coroutine 2 returning after 2005 millis 
+result of both functions was result of async coroutine 1 result of async coroutine 2 after 2005 millis
+``` 
+The async function creates and (by default, there's a parameter to make it lazy) immediately launches a new asynchronous coroutine.
+This is pretty comparable to promise type libraries. 
+A key difference though is that, even though the sub coroutines are run in parallel, the outer coroutine will never finish before all 
+inner coroutine are finished, even if the result is not used! 
+This is called structured concurrency.
+
+### Structured concurrency
+
+We programmers write horrendously big applications which are hard to fit in our mammal brains.
+One thing what makes applications, even more so asynchronous applications, hard to understand and reason about are side effects.
+If i'm examining a piece of code and i need to inspect the code of every function it calls (and the functions they call) 
+to understand what it does i will be wasting a lot of time and brainpower. 
+It's very easy, especially with simple promise like libraries, to create seemingly synchronous functions which spawn a 
+task somewhere doing stuff you have no control on anymore while the caller is unaware. 
+This can lead to unwanted side effects and waste of resource usage.
+
+Coroutines tackle it like this: once you're in a coroutine scope every coroutine needs to finish before the parent finishes.
+
+```kotlin
+    val startTime = System.currentTimeMillis()
+    runBlocking {
+        val topCoroutineJob: Job = launch {
+            launch {
+                delay(1000)
+                println("sub cr 1 returning after ${System.currentTimeMillis() - startTime} millis")
+            }
+ 
+ 
+            launch {
+                delay(1500)
+                println("sub cr returning after ${System.currentTimeMillis() - startTime} millis")
+            }
+ 
+            println("last line in top coroutine reached at ${System.currentTimeMillis() - startTime} millis")
+        }
+ 
+        topCoroutineJob.invokeOnCompletion(true, true) {
+            println("completed top coroutine ")
+        }
+    }
+```
+
+TODO Reference to dijkstra article (Trio)
+output: 
+```text
+async coroutine 2 returning after 3006 millis 
+completed top coroutine
+```
+(Disclaimer: I'm using GlobalScope.launch here + a thread.sleep on purpose because i found runBlocking confusing in this context)
+Even though the async coroutine is run on a completely different thread and nothing is awaiting it's result the top coroutine 
+is not completed until the inner (async) coroutine is finished! 
+
+TODO
+
+##  Why and when should you consider using coroutines ?
+
+## Increasing demand for efficient resource usage
+As you may have noticed in the last few years there's been increased attention for efficient resource usage. 
+There's multiple reasons for this:
+- Smartphones and their apps increased the amount of clients for applications
+- Many more small devices running on limited battery life and increasing expectations from users about their responsiveness.
+- Processor speeds are reaching their limits
+- Applications are often being run in the cloud and part of the cost is often based on the amount of resources used.
+- The microservices architecture gained a lot of momentum in recent years=> many small applications need to communicate a lot with eachother
+=> many (expensive) network calls
+- ...
+Older solutions like manual thread management and callbacks quickly turn your application in to a big ball of mud in these environments.
+
+The most popular solutions these days are either promise/future like libraries or fully reactive applications.
+A lot has been written about callbacks and manual thread management and their limitations so i'll mainly focus on comparing with these 
+and why coroutines is a worthy competitor.
+
+### Programming model
+Promise/future like libraries help avoid callback hell by providing DSLs to handle asynchronous calls.
+These libraries aren't standardized and require you to learn a new API which usually impacts the resulting code quite a bit.
+The advantage is they are not invasive at all, you can use them in 1 place without affecting the rest of your code base.
+
+FRP libraries(Reactor/Rxjava/...) These libraries are a very good fit for applications that are very performance/resource critical
+but they are very invasive; to fully leverage them you need to make your applications reactive end to end. 
+Learning and mastering them requires quite some involvement, 
+also from the rest of your team and any future developer that might have to maintain your system. 
+
+Coroutines fit somewhere in between in my opinion. They are more invasive than Promise/future libraries(
+imagine changing an existing application method to a suspend function; you will need to make all callers run in a coroutine scope!)
+But once you're there you have an application that can be reasoned about more easily like a regular application.
+
+### Resource management
+Promise/future like libraries don't really do much here except for unblocking a certain thread, often to give faster results to
+a user. Somewhere there's still a thread running doing the job instead.
+
+FRP really makes a difference here; by making the source of the data responsible for pushing the response back the application itself 
+consumes less resources.
+
+With coroutines you can take both approaches, luckily coroutines and reactive programming are quite compatible and there's 
+already some effort going on in the spring environment to bridge them. (for example https://spring.io/blog/2019/04/12/going-reactive-with-spring-coroutines-and-kotlin-flow)
+
+## Performance
+
+TODO
+
+## Conclusion
+
+Kotlin coroutines
+I recommend using Kotlin Coroutines
+
+
+
+
+
+ 
