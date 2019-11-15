@@ -9,6 +9,7 @@ comments: true
 ---
 
 TODO images
+TODO kotlin playground stuffies
 ## Introduction
 
 Want to create an application using a comfortable imperative style yet still efficient on resources?
@@ -27,7 +28,7 @@ TODO add an index to the subtitles
 ## What are Coroutines?
 
 Coroutines are essentially lightweight processes which can run in the same thread and 'yield' to one another when they have to wait, for example when doing a network or database call. 
-Thread creation is expensive since each thread requires memory for it's stack and reserving it costs time and space.
+Thread creation is expensive since each thread requires memory for its stack and reserving it costs time and space.
 Coroutines don't have this issue, as they can reuse the same thread.
 Coroutines are very different from Java threads, threads are scheduled preemptively. 
 The jvm's scheduler, a central entity, knows which threads need to run and schedules their execution to assure that every thread gets an appropriate time slice, 
@@ -94,50 +95,51 @@ output:
 So far nothing special. Even worse! If you use Globalscope.launch() you create a task in a thread over which you have no control and is unpredictable!
 So where does the magic start you ask? Once we're inside a coroutine things become a lot more predictable! 
 
+TODO bridge this shit
 Let's try testing the built in delay function using junit 5
 ```kotlin
     public suspend fun delay(timeMillis: Long) { /* */ }
 
 ```
 ```kotlin
-    @Test
-    internal fun testDelay() {
-        runBlocking {
-            val startTime = System.currentTimeMillis()
-            delay(1000)
-            val endTime = System.currentTimeMillis()
-            assertTrue(endTime - startTime >= 1000)
-        }    
-    }
+@Test
+internal fun testDelay() {
+    runBlocking {
+        val startTime = System.currentTimeMillis()
+        delay(1000)
+        val endTime = System.currentTimeMillis()
+        assertTrue(endTime - startTime >= 1000)
+    }    
+}
 ```
 
 This seems very similar to good old 'Thread.sleep()' right? 
 Lets try a more advanced example with 2 coroutines:
 
 ```kotlin
-   runBlocking {
-            launch {
-                println("cr1: starting")
-                println("cr1: yielding sub coroutine 1")
-                delay(1000)
-                println("cr1: resuming sub coroutine 1")
+runBlocking {
+    launch {
+        println("cr1: starting")
+        println("cr1: YIELDING sub coroutine 1")
+        delay(1000)
+        println("cr1: RESUMING sub coroutine 1")
 
-            }
+    }
 
-            launch{
-                println("cr2: starting sub coroutine 2")
-                println("cr2: ending sub coroutine 2")
-            }
-        }
+    launch{
+        println("cr2: STARTING sub coroutine 2")
+        println("cr2: ENDING sub coroutine 2")
+    }
+}
 ```
 
 output 
 ```text 
 cr1: starting
-cr1: yielding sub coroutine 1
-cr2: starting sub coroutine 2
-cr2: ending sub coroutine 2
-cr1: resuming sub coroutine 1
+cr1: YIELDING sub coroutine 1
+cr2: STARTING sub coroutine 2
+cr2: ENDING sub coroutine 2
+cr1: RESUMING sub coroutine 1
 ```
 As you can see; the first sub coroutine does not block the other sub coroutines from executing!
 The delay function yields and the current coroutine is suspended, which allows the dispatcher to instead run coroutine 2!
@@ -272,7 +274,7 @@ If I am examining a piece of code and I need to inspect the code of every functi
 It is very easy, especially with simple promise like libraries, to create seemingly synchronous functions which spawn a task somewhere doing stuff you have no control on anymore while you are unaware as a caller. 
 This can lead to unwanted side effects and a waste of resource usage.
 
-Coroutines tackle it like this: once you are in a coroutine every coroutine in it's scope needs to finish before the parent finishes.
+Coroutines tackle it like this: once you are in a coroutine every coroutine in its scope needs to finish before the parent finishes.
 This is part of what's called 'Structured Concurrency'
 
 ```kotlin
@@ -308,11 +310,14 @@ completed outer coroutine
 ```
 
 If you want to learn more about this concept i will refer you to following article: 
-https://vorpus.org/blog/notes-on-structured-concurrency-or-go-statement-considered-harmful/
+TODO link syntax : https://vorpus.org/blog/notes-on-structured-concurrency-or-go-statement-considered-harmful/
 
 
 ## Cancellation
 
+TODO
+
+## Channels
 TODO
 
 ##  Why and when should you consider using coroutines ?
@@ -365,7 +370,7 @@ TODO
 
 ## Conclusion
 
-Although still in it's infancy there's some very interesting
+Although still in its infancy there's some very interesting
 
 
 
