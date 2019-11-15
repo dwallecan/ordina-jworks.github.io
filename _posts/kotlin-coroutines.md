@@ -1,6 +1,6 @@
 ---
 layout: post
-authors: [tim_schmitte]
+authors: [tim_schmitte, jeroen_meys]
 title: 'Should you adopt Kotlin coroutines in your Spring Boot Application? '
 image: /img/todo.jpg
 tags: [Spring,Spring Boot,R2DBC,Webflux,Reactive,Coroutines,Kotlin]
