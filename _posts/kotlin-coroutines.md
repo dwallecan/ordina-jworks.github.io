@@ -8,6 +8,7 @@ category: Reactive
 comments: true
 ---
 
+TODO images
 ## Introduction
 
 Want to create an application using a comfortable imperative style yet still efficient on resources?
@@ -17,7 +18,7 @@ Maybe Kotlin's coroutines are the answer.
 Functional reactive programming has been all the hype in recent years but let's face it;
 these libraries completely change the way we program. 
 They require a dramatic shift in thinking, and getting your whole team on board might be a pain. 
-On top of that, in my experience, it is overkill for many use cases.
+On top of that, in our opinion, it is overkill for many use cases.
 
 As we will see with Kotlin's coroutines we are going to try to keep a comfortable imperative style while retaining many of the benefits of asynchronous programming. 
 
@@ -29,7 +30,8 @@ Coroutines are essentially lightweight processes which can run in the same threa
 Thread creation is expensive since each thread requires memory for it's stack and reserving it costs time and space.
 Coroutines don't have this issue, as they can reuse the same thread.
 Coroutines are very different from Java threads, threads are scheduled preemptively. 
-The jvm's scheduler, a central entity, knows which threads need to run and schedules their execution to assure that every thread gets an appropriate time slice, it can interrupt them and switch to advancing other threads.
+The jvm's scheduler, a central entity, knows which threads need to run and schedules their execution to assure that every thread gets an appropriate time slice, 
+it can interrupt them and switch to advancing other threads.
 
 Coroutines are tasks which keep running until they either finish or yield.
 After which some kind of dispatcher is responsible for allowing another coroutine to do its work.
@@ -39,6 +41,8 @@ The advantage of this system is that you know that the operations in a single co
 Moreover, coroutines do not end until all sub coroutines end, they run in a hierarchy.
 This makes coroutines a lot easier to reason about because this way no runaway side processes are spawned.
 This is part of what's called structured concurrency.
+
+TODO structured concurrency link
 
 ## Coroutines in Kotlin
 
@@ -50,13 +54,13 @@ The one they offer themselves, and which we will be using here is called [Kotlin
 Let's try running a simple coroutine 
 
 ```kotlin
-    @Test
-    internal fun launchingASimpleCoroutine() {
-        GlobalScope.launch {
-            println("running my first coroutine")
-        }
-        println("end")
+@Test
+internal fun launchingASimpleCoroutine() {
+    GlobalScope.launch {
+        println("running my first coroutine")
     }
+    println("end")
+}
 ```
 output: 
 ```text 
@@ -69,14 +73,16 @@ If you're unlucky, the test's main thread finishes before the coroutine's thread
 We could solve this by putting a thread.sleep at the end of the test method; obviously that's a rather ugly solution since it completely blocks a thread for an arbitrary amount of time. 
 Luckily the kotlin team provides us with a function which just blocks until the completion of the coroutine!
 
+TODO: timeline image!
+
 ```kotlin
-  @Test
-    internal fun launchingASimpleCoroutine2() {
-        runBlocking {
-            println("running my first coroutine")
-        }
-        println("end")
+@Test
+internal fun launchingASimpleCoroutine2() {
+    runBlocking {
+        println("running my first coroutine")
     }
+    println("end")
+}
 ```
 
 output: 
