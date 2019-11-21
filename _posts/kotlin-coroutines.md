@@ -65,7 +65,7 @@ internal fun launchingASimpleCoroutine() {
 ```
 output: 
 ```text 
-    end
+end
 ```
 
 That was kinda disappointing wasn't it? Nothing seems to have happened because the launch() method by default launches in a separate thread in a Thread pool.
@@ -315,7 +315,28 @@ TODO link syntax : https://vorpus.org/blog/notes-on-structured-concurrency-or-go
 
 ## Cancellation
 
-TODO
+(Regular) Kotlin coroutines support cancellation; it looks like this: 
+
+<iframe src="https://pl.kotl.in/_-ABCdhnq?theme=darcula"></iframe>
+
+Simple right? 
+There are a few caveats though: coroutines are cancellation cooperative; this means the coroutine has to support cancellation itself.
+If your coroutine code is doing a large computation you need to take care of this yourself.
+For example:
+ 
+<iframe src="https://pl.kotl.in/bzdscIMps?theme=darcula"></iframe>
+([shamelessly copied from the kotlin website](https://kotlinlang.org/docs/reference/coroutines/cancellation-and-timeouts.html))
+
+As you can see the coroutine  isn't cancelled until the computation is done!
+There's a few ways around this; you can call another suspending function like yield() or you can manually check the isActive property of the job in the loop.
+
+<iframe src="https://pl.kotl.in/DoJ216-K9?theme=darcula"></iframe>
+
+Obviously this can be tricky. 
+Luckily in-built functions from kotlin already take care of this and if you're using any I/O libraries they should also be taking this into account.
+For most purposes you should not be worried about this.
+
+If you want a full explanation i refer you to the [kotlin website](https://kotlinlang.org/docs/reference/coroutines/cancellation-and-timeouts.html).
 
 ## Channels
 TODO
@@ -361,8 +382,7 @@ Somewhere there's still a thread running doing the job instead.
 FRP really makes a difference here; by making the source of the data responsible for pushing the response back the application itself consumes less resources.
 
 With coroutines you can take both approaches, luckily coroutines and reactive programming are quite compatible and there's 
-already some effort going on in the spring environment to bridge them. 
-As you can see at: [https://spring.io/blog/2019/04/12/going-reactive-with-spring-coroutines-and-kotlin-flow](https://spring.io/blog/2019/04/12/going-reactive-with-spring-coroutines-and-kotlin-flow)
+already some effort going on in the spring environment to [bridge](https://spring.io/blog/2019/04/12/going-reactive-with-spring-coroutines-and-kotlin-flow) them.
 
 ## Performance
 
