@@ -2,14 +2,14 @@
 layout: post
 authors: [tim_schmitte, jeroen_meys]
 title: 'Should you adopt Kotlin coroutines in your Spring Boot Application? '
-image: /img/todo.jpg
+image: /img/cypress/cypress-logo.png?TODO
 tags: [Spring,Spring Boot,R2DBC,Webflux,Reactive,Coroutines,Kotlin]
 category: Reactive
 comments: true
 ---
 
 TODO images
-TODO kotlin playground stuffies
+
 ## Introduction
 
 Want to create an application using a comfortable imperative style yet still efficient on resources?
@@ -54,15 +54,20 @@ The one they offer themselves, and which we will be using here is called [Kotlin
 ### A simple example
 Let's try running a simple coroutine 
 
-```kotlin
-@Test
-internal fun launchingASimpleCoroutine() {
+<code class="kotlin-code" 
+    auto-indent="true" 
+    highlight-on-fly="true" >
+import kotlinx.coroutines.*    
+//sampleStart
+fun main() {
     GlobalScope.launch {
         println("running my first coroutine")
     }
     println("end")
 }
-```
+//sampleEnd</code>
+
+
 output: 
 ```text 
 end
@@ -76,15 +81,21 @@ Luckily the kotlin team provides us with a function which just blocks until the 
 
 TODO: timeline image!
 
-```kotlin
-@Test
+<code class="kotlin-code" 
+    auto-indent="true" 
+    highlight-on-fly="true" >
+import kotlinx.coroutines.*
+fun main() {
+    launchingASimpleCoroutine2()
+}
+//sampleStart
 internal fun launchingASimpleCoroutine2() {
     runBlocking {
         println("running my first coroutine")
     }
     println("end")
 }
-```
+//sampleEnd</code>
 
 output: 
 ```text 
@@ -97,41 +108,55 @@ So where does the magic start you ask? Once we're inside a coroutine things beco
 
 TODO bridge this shit
 Let's try testing the built in delay function using junit 5
-```kotlin
-    public suspend fun delay(timeMillis: Long) { /* */ }
 
-```
-```kotlin
-@Test
-internal fun testDelay() {
-    runBlocking {
-        val startTime = System.currentTimeMillis()
-        delay(1000)
-        val endTime = System.currentTimeMillis()
-        assertTrue(endTime - startTime >= 1000)
-    }    
-}
-```
+<code class="kotlin-code"  
+    data-highlight-only>
+public suspend fun delay(timeMillis: Long) { /* */ }
+</code>
+
+<code class="kotlin-code" 
+    data-target-platform="junit" 
+    auto-indent="true" 
+    highlight-on-fly="true">
+import kotlinx.coroutines.*
+import org.junit.Test
+import org.junit.Assert.assertTrue
+class Test {
+//sampleStart
+    @Test
+    internal fun testDelay() {
+        runBlocking {
+            val startTime = System.currentTimeMillis()
+            delay(100)
+            val endTime = System.currentTimeMillis()
+            assertTrue(endTime - startTime >= 100)
+        }    
+    }
+//sampleEnd
+}</code>
 
 This seems very similar to good old 'Thread.sleep()' right? 
 Lets try a more advanced example with 2 coroutines:
 
-```kotlin
-runBlocking {
-    launch {
-        println("cr1: starting")
-        println("cr1: YIELDING sub coroutine 1")
-        delay(1000)
-        println("cr1: RESUMING sub coroutine 1")
-
-    }
-
-    launch{
-        println("cr2: STARTING sub coroutine 2")
-        println("cr2: ENDING sub coroutine 2")
+<code class="kotlin-code" 
+    auto-indent="true" 
+    highlight-on-fly="true" >
+import kotlinx.coroutines.*
+fun main() {
+    runBlocking {
+        launch {
+            println("cr1: starting")
+            println("cr1: YIELDING sub coroutine 1")
+            delay(1000)
+            println("cr1: RESUMING sub coroutine 1")
+        }
+        launch{
+            println("cr2: STARTING sub coroutine 2")
+            println("cr2: ENDING sub coroutine 2")
+        }
     }
 }
-```
+</code>
 
 output 
 ```text 
@@ -151,31 +176,37 @@ Suspending functions can only be used directly inside a coroutine or in another 
 ### Writing your own suspending functions
 Let's figure out how delay achieves this by writing our own suspending function.
 
-```kotlin
-    private suspend fun suspendingFunction(): String = withContext(Dispatchers.Default) {
-            println("coroutine 1 dispatched starting execution")
-
-            Thread.sleep(5000)
-            println("coroutine 1 dispatched executed")
-
-            return@withContext "result of subcoroutine"
-    }
-    
-    @Test
-    internal fun selfImplementedSuspendingFunction() {
-        runBlocking {
-            launch {
-                println("coroutine 1 starting execution")
-                println("coroutine 1 calling suspending function")
-                val suspendedCoroutineResult = suspendingFunction()
-                println("coroutine 1 executed, result was : " + suspendedCoroutineResult)
-            }
-            launch{
-                println("coroutine 2 executed")
-            }
+<code class="kotlin-code"  
+    auto-indent="true" 
+    highlight-on-fly="true">
+import kotlinx.coroutines.*
+import org.junit.Test
+import org.junit.Assert.assertTrue
+fun main() {
+    selfImplementedSuspendingFunction()
+}
+//sampleStart
+private suspend fun suspendingFunction(): String = withContext(Dispatchers.Default) {
+    println("coroutine 1 dispatched starting execution")
+    Thread.sleep(5000)
+    println("coroutine 1 dispatched executed")
+    return@withContext "result of subcoroutine"
+}
+internal fun selfImplementedSuspendingFunction() {
+    runBlocking {
+        launch {
+            println("coroutine 1 starting execution")
+            println("coroutine 1 calling suspending function")
+            val suspendedCoroutineResult = suspendingFunction()
+            println("coroutine 1 executed, result was : " + suspendedCoroutineResult)
+        }
+        launch{
+            println("coroutine 2 executed")
         }
     }
-```
+}
+//sampleEnd
+</code>
 
 Output: 
 
@@ -202,7 +233,15 @@ When using other approaches like Promises , callbacks or reactive we usually pas
 
 Let's see what this looks like with Kotlin coroutines.
 
-```kotlin
+<code class="kotlin-code" 
+    data-target-platform="junit" 
+    auto-indent="true" 
+    highlight-on-fly="true">
+import kotlinx.coroutines.*
+import org.junit.Test
+import org.junit.Assert.assertTrue
+class Test {
+//sampleStart
     @Test
     internal fun exceptionHandling() {
         runBlocking {
@@ -213,15 +252,14 @@ Let's see what this looks like with Kotlin coroutines.
             }
         }
     }
-
     private suspend fun throwingFunction() = withContext(Dispatchers.Default){
         if(1==2){
             return@withContext "impossible"
         }
         throw RuntimeException("Totally unexpected exception")
     }
-
-```
+//sampleEnd
+}</code>
 
 It's just plain old try catch!
 Even though the execution might be spread over different threads or be done at different times, the stack is retained in the coroutine.
@@ -233,26 +271,29 @@ Until a yield happens all code is executed sequentially.
 Concurrency just means that multiple different coroutines can be run intermittently.
 If you do want to run processes in parallel you need to use the async function. 
 
-```kotlin
+<code class="kotlin-code">
+import kotlinx.coroutines.*
+//sampleStart
+fun main() {
     val startTime = System.currentTimeMillis()
     runBlocking {
-        val asyncCoroutine1Result: Deferred<String> = async {
+        val asyncCoroutine1Result: Deferred&lt;String&gt; = async {
             delay(1500)
             println("async coroutine 1 returning after ${System.currentTimeMillis() - startTime} millis " )
-
             return@async "result of async coroutine 1"
         }
-
-        val asyncCoroutine2Result: Deferred<String> = async {
+        val asyncCoroutine2Result: Deferred&lt;String&gt; = async {
             delay(2000)
             println("async coroutine 2 returning after ${System.currentTimeMillis() - startTime} millis " )
             return@async "result of async coroutine 2"
         }
-
         println("Awaiting results of both coroutines in top coroutine after ${System.currentTimeMillis() - startTime} millis")
         println("result of both functions was ${asyncCoroutine1Result.await() + ' ' + asyncCoroutine2Result.await()} after ${System.currentTimeMillis() - startTime} millis")
     }
-```
+}
+//sampleEnd
+</code>
+
 
 Output:
 ```text
@@ -277,7 +318,11 @@ This can lead to unwanted side effects and a waste of resource usage.
 Coroutines tackle it like this: once you are in a coroutine every coroutine in its scope needs to finish before the parent finishes.
 This is part of what's called 'Structured Concurrency'
 
-```kotlin
+<code class="kotlin-code">
+import kotlinx.coroutines.*
+@UseExperimental(kotlinx.coroutines.InternalCoroutinesApi::class)
+//sampleStart
+fun main() {
     val startTime = System.currentTimeMillis()
     runBlocking {
         val outerCoroutine: Job = launch {
@@ -285,21 +330,19 @@ This is part of what's called 'Structured Concurrency'
                 delay(1000)
                 println("sub cr 1 returning after ${System.currentTimeMillis() - startTime} millis")
             }
- 
- 
             launch {
                 delay(1500)
                 println("sub cr 2 returning after ${System.currentTimeMillis() - startTime} millis")
             }
- 
             println("last line in outer coroutine reached at ${System.currentTimeMillis() - startTime} millis")
         }
- 
         outerCoroutine.invokeOnCompletion(true, true) {
             println("completed outer coroutine")
         }
     }
-```
+}
+//sampleEnd
+</code>
 
 output: 
 ```text
@@ -317,20 +360,81 @@ TODO link syntax : https://vorpus.org/blog/notes-on-structured-concurrency-or-go
 
 (Regular) Kotlin coroutines support cancellation; it looks like this: 
 
-<iframe src="https://pl.kotl.in/_-ABCdhnq?theme=darcula"></iframe>
+<code class="kotlin-code">
+import kotlinx.coroutines.*
+//sampleStart
+fun main() {
+    runBlocking{
+        var coroutine =launch{
+            println("starting coroutine")
+        	delay(2000)
+        	println("this will never happen")
+    	}  
+        delay(1000)
+        println("cancelling")
+        coroutine.cancelAndJoin()
+        println("cancelled")
+    }
+}
+//sampleEnd
+</code>
 
 Simple right? 
 There are a few caveats though: coroutines are cancellation cooperative; this means the coroutine has to support cancellation itself.
 If your coroutine code is doing a large computation you need to take care of this yourself.
 For example:
- 
-<iframe src="https://pl.kotl.in/bzdscIMps?theme=darcula"></iframe>
+
+<code class="kotlin-code">
+import kotlinx.coroutines.*
+//sampleStart
+fun main() = runBlocking {
+    val startTime = System.currentTimeMillis()
+    val job = launch(Dispatchers.Default) {
+        var nextPrintTime = startTime
+        var i = 0
+        while (i < 5) { // computation loop, just wastes CPU
+            // print a message twice a second
+            if (System.currentTimeMillis() >= nextPrintTime) {
+                println("job: I'm sleeping ${i++} ...")
+                nextPrintTime += 500L
+            }
+        }
+    }
+    delay(1300L) // delay a bit
+    println("main: I'm tired of waiting!")
+    job.cancelAndJoin() // cancels the job and waits for its completion
+    println("main: Now I can quit.")    
+}
+//sampleEnd</code>
 ([shamelessly copied from the kotlin website](https://kotlinlang.org/docs/reference/coroutines/cancellation-and-timeouts.html))
 
 As you can see the coroutine  isn't cancelled until the computation is done!
 There's a few ways around this; you can call another suspending function like yield() or you can manually check the isActive property of the job in the loop.
 
-<iframe src="https://pl.kotl.in/DoJ216-K9?theme=darcula"></iframe>
+<code class="kotlin-code">
+import kotlinx.coroutines.*
+//sampleStart
+fun main() = runBlocking {
+    val startTime = System.currentTimeMillis()
+    val job = launch(Dispatchers.Default) {
+        var nextPrintTime = startTime
+        var i = 0
+        while (isActive) { // computation loop, just wastes CPU
+            // print a message twice a second
+            if (System.currentTimeMillis() >= nextPrintTime) {
+                println("job: I'm sleeping ${i++} ...")
+                nextPrintTime += 500L
+            }
+        }
+    }
+    delay(1300L) // delay a bit
+    println("main: I'm tired of waiting!")
+    job.cancelAndJoin() // cancels the job and waits for its completion
+    println("main: Now I can quit.")    
+}
+//sampleEnd
+</code>
+
 
 Obviously this can be tricky. 
 Luckily in-built functions from kotlin already take care of this and if you're using any I/O libraries they should also be taking this into account.
@@ -393,6 +497,7 @@ TODO
 Although still in its infancy there's some very interesting
 
 
-
+<!-- transforms interactive Kotlin code snippets -->
+<script src="https://unpkg.com/kotlin-playground@1" data-selector="code.kotlin-code"></script>
 
  
