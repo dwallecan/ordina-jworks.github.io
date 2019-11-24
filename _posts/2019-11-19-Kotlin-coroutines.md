@@ -356,9 +356,269 @@ If you want to learn more about this concept i will refer you to following artic
 TODO link syntax : https://vorpus.org/blog/notes-on-structured-concurrency-or-go-statement-considered-harmful/
 
 
-## Cancellation
+## Failure and Cancellation
 
-(Regular) Kotlin coroutines support cancellation; it looks like this: 
+One has to take care when handling failure when running functions in parallel.
+To higlight the differences we'll start by comparing with java's CompletableFuture API.
+Imagine we want to start executing some code asynchronously while we continue processing .
+
+Let's see what a naive approach looks like:
+
+<code class="kotlin-code">
+import kotlinx.coroutines.*
+fun main() {
+    runBlocking(Dispatchers.IO) {
+    //sampleStart
+        val asyncMethodResult = asyncMethod()
+        val syncMethodResult = doStuff()
+        println("combined result was ${asyncMethodResult.await()} $syncMethodResult")
+    //sampleEnd
+    }
+}
+private fun CoroutineScope.asyncMethod(): Deferred<String> {
+    val job = async {
+        val startTime = System.currentTimeMillis()
+        while (System.currentTimeMillis() - startTime < 1500) {
+            println("Async method is processing")
+            delay(300)
+        }
+        return@async "result of async method"
+    }
+    job.invokeOnCompletion { ex ->
+        if (ex is CancellationException) {
+            println("async method cancelled!")
+        } else {
+            println("completed because of other reasons")
+        }
+    }
+    val asyncMethodResult = job
+    return asyncMethodResult
+}
+fun doStuff(): String {
+    Thread.sleep(200)//Giving a chance to the async method to start
+    if (true) {
+        println("throwing exception in sync method")
+        throw RuntimeException("Oh shi...")
+    } else {
+        return "result"
+    }
+}
+</code>
+
+The async method keeps processing even though the result will be wasted!
+Depending on the library you're using there are usually some ways around this; usually the solution is to wrap the synchronous method(s) in (an) async call(s) 
+and combine them using a function like CompletableFuture.allOf() or completableFuture.thenAcceptBoth().
+While doing the job these approaches require you to wrap other 'regular' synchronous code(introducing unnecessary complexity) 
+and require you to find the right method for your usecase.
+
+Now let's see how kotlin tackles this: 
+
+<code class="kotlin-code">
+import kotlinx.coroutines.*
+fun main() {
+/*Using async with the default Dispatcher makes it default to use the same Thread...*/
+    runBlocking(Dispatchers.IO) {
+    //sampleStart
+        val asyncMethodResult = asyncMethod()
+        val syncMethodResult = doStuff()
+        println("combined result was ${asyncMethodResult.await()} $syncMethodResult")
+    //sampleEnd
+    }
+}
+private fun CoroutineScope.asyncMethod(): Deferred<String> {
+    val job = async {
+        val startTime = System.currentTimeMillis()
+        while (System.currentTimeMillis() - startTime < 1500) {
+            delay(300)
+            println("Async method still processing")
+        }
+        return@async "result of async method"
+    }
+    job.invokeOnCompletion { ex ->
+        if (ex is CancellationException) {
+            println("async method cancelled!")
+        } else {
+            println("completed because of other reasons")
+        }
+    }
+    val asyncMethodResult = job
+    return asyncMethodResult
+}
+fun doStuff(): String {
+    Thread.sleep(200)//Giving a chance to the async method to start
+    if (true) {
+        println("throwing exception in sync method")
+        throw RuntimeException("Oh shi...")
+    } else {
+        return "result"
+    }
+}
+</code>
+
+The code may look not too different from the 'naive' completableFuture example but the outcome is very different;
+the async method is cancelled! This happens because the exception is raised to the outer coroutine and it will try to cancel all child coroutines.
+
+There's a caveat though: let's take previous example and change the async function to mimic a heavy algorithm.
+
+<code class="kotlin-code">
+import kotlinx.coroutines.*
+import java.util.concurrent.Executors
+fun main() {
+/*Using async with the default Dispatcher makes it default to use the same Thread...*/
+    runBlocking(Dispatchers.IO) {
+        val asyncMethodResult = asyncMethod()
+        val syncMethodResult = doStuff()
+        println("combined result was ${asyncMethodResult.await()} $syncMethodResult")
+    }
+}
+private fun CoroutineScope.asyncMethod(): Deferred<String> {
+    val job = async {
+        //sampleStart
+        val startTime = System.currentTimeMillis()
+        var previousTimeDecis = 0L
+        //Executing a computation loop which will exhaust the thread and print every 100 ms
+        while (System.currentTimeMillis() - startTime < 700) {
+            val currTimeMillis = System.currentTimeMillis()
+            val currentTimeDecis = currTimeMillis - currTimeMillis % 100
+            if (previousTimeDecis != currentTimeDecis) {
+                println("Heavy computation in progress")
+            }
+            previousTimeDecis = currentTimeDecis
+        }
+        return@async "result of async method"
+        //sampleEnd
+    }
+    job.invokeOnCompletion { ex ->
+        if (ex is CancellationException) {
+            println("async method cancelled!")
+        } else {
+            println("completed because of other reasons")
+        }
+    }
+    val asyncMethodResult = job
+    return asyncMethodResult
+}
+suspend fun doStuff(): String {
+    delay(200)//Giving a chance to the async method to start
+    if (true) {
+        println("throwing exception in sync method")
+        throw RuntimeException("Oh shi...")
+    } else {
+        return "result"
+    }
+}
+</code> 
+
+The async method is not cancelled here until it's done with the 'algorithm'!
+Coroutines are cancellation cooperative; this means the coroutine code has to check for cancellation itself!
+When using built-in functions like delay this should be handled for you, but when implementing your own heavy operations you should take care of it yourself!
+
+One way to resolve this is by calling the built-in [yield](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/yield.html) function.
+This function is cancellable() and will notice the coroutine has been marked as cancelled.
+
+For example: 
+<code class="kotlin-code">
+import kotlinx.coroutines.*
+import java.util.concurrent.Executors
+fun main() {
+/*Using async with the default Dispatcher makes it default to use the same Thread...*/
+    runBlocking(Dispatchers.IO) {
+        val asyncMethodResult = asyncMethod()
+        val syncMethodResult = doStuff()
+        println("combined result was ${asyncMethodResult.await()} $syncMethodResult")
+    }
+}
+private fun CoroutineScope.asyncMethod(): Deferred<String> {
+    val job = async {
+        val startTime = System.currentTimeMillis()
+        var previousTimeDecis = 0L
+        //Executing a computation loop which will exhaust the thread and print every 100 ms
+        //sampleStart
+        while (System.currentTimeMillis() - startTime < 700) {
+            val currTimeMillis = System.currentTimeMillis()
+            val currentTimeDecis = currTimeMillis - currTimeMillis % 100
+            if (previousTimeDecis != currentTimeDecis) {
+				yield()
+                println("Heavy computation in progress")
+            }
+            previousTimeDecis = currentTimeDecis
+        }
+        //sampleEnd
+        return@async "result of async method"
+    }
+    job.invokeOnCompletion { ex ->
+        if (ex is CancellationException) {
+            println("async method cancelled!")
+        } else {
+            println("completed because of other reasons")
+        }
+    }
+    val asyncMethodResult = job
+    return asyncMethodResult
+}
+suspend fun doStuff(): String {
+    delay(100)//Giving a chance to the async method to start
+    if (true) {
+        println("throwing exception in sync method")
+        throw RuntimeException("Oh shi...")
+    } else {
+        return "result"
+    }
+}
+</code>
+
+You can also do it manually by checking the isActive property in the coroutine's scope:
+
+<code class="kotlin-code">
+import kotlinx.coroutines.*
+import java.util.concurrent.Executors
+fun main() {
+/*Using async with the default Dispatcher makes it default to use the same Thread...*/
+    runBlocking(Dispatchers.IO) {
+        val asyncMethodResult = asyncMethod()
+        val syncMethodResult = doStuff()
+        println("combined result was ${asyncMethodResult.await()} $syncMethodResult")
+    }
+}
+private fun CoroutineScope.asyncMethod(): Deferred<String> {
+    val job = async {
+        //sampleStart
+        val startTime = System.currentTimeMillis()
+        var previousTimeDecis = 0L
+        //Executing a computation loop which will exhaust the thread and print every 100 ms
+        while (System.currentTimeMillis() - startTime < 700 && isActive) {
+            val currTimeMillis = System.currentTimeMillis()
+            val currentTimeDecis = currTimeMillis - currTimeMillis % 100
+            if (previousTimeDecis != currentTimeDecis) {
+                println("Heavy computation in progress")
+            }
+            previousTimeDecis = currentTimeDecis
+        }
+        return@async "result of async method"
+        //sampleEnd
+    }
+    job.invokeOnCompletion { ex ->
+        if (ex is CancellationException) {
+            println("async method cancelled!")
+        } else {
+            println("completed because of other reasons")
+        }
+    }
+    val asyncMethodResult = job
+    return asyncMethodResult
+}
+suspend fun doStuff(): String {
+    delay(100)//Giving a chance to the async method to start
+    if (true) {
+        println("throwing exception in sync method")
+        throw RuntimeException("Oh shi...")
+    } else {
+        return "result"
+    }
+}
+</code>
+
+(Regular) Kotlin coroutines also support manual cancellation; it looks like this: 
 
 <code class="kotlin-code">
 import kotlinx.coroutines.*
